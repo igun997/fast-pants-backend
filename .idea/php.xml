@@ -124,6 +124,8 @@
       <path value="$PROJECT_DIR$/vendor/maxmind-db/reader" />
       <path value="$PROJECT_DIR$/vendor/automattic/jetpack-constants" />
       <path value="$PROJECT_DIR$/vendor/automattic/woocommerce" />
+      <path value="$PROJECT_DIR$/vendor/kitloong/laravel-migrations-generator" />
+      <path value="$PROJECT_DIR$/vendor/orangehill/iseed" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
