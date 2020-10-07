@@ -56,7 +56,7 @@ class Controller extends BaseController
                 ],
                 'form_params'=>$data
             ]);
-        } catch (GuzzleException $e) {
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
             return $e;
         }
 

@@ -123,7 +123,7 @@ class WooAPI extends Controller
             $cred = $this->_listing();
             $full_domain = "https://".$cred->domain."/api/user/generate_auth_cookie/";
             $client = $this->wpLoginUser($full_domain,$req->all());
-            return $this->response(400,"Invalid Woo Client",[$client,$full_domain,$client->getHeaders(),$client->getMessage()]);
+            return $this->response(400,"Invalid Woo Client",[$client,$full_domain]);
             if ($client !== FALSE){
                 $myId = json_decode($client->getBody()->getContents());
                 if ($myId){
