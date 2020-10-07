@@ -46,8 +46,8 @@ class Controller extends BaseController
     public function wpLoginUser($full_path,$data)
     {
         $client = new GuzzleClient([
-            'base_uri' => 'https://pridenjoyco.id/',
-            'timeout'  => 2.0,
+            'base_uri' => 'http://httpbin.org',
+            'timeout'  => 10,
         ]);
         try {
             return $client->request("POST",$full_path,[
