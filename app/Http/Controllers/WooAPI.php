@@ -10,7 +10,7 @@ class WooAPI extends Controller
     public function __construct()
     {
         if ($this->identity() === null){
-            return $this->response(400);
+            return $this->response(400,"Invalid Identity");
         }
     }
 
