@@ -128,10 +128,10 @@ class WooAPI extends Controller
                 if ($myId){
                     return  $this->response(200,"OK",$myId);
                 }
-                return $this->response(400);
+                return $this->response(400,"Invalid MyID");
             }
         }
-        return $this->response(400);
+        return $this->response(400,"Invalid Woo Client");
     }
 
     public function customer($id)
