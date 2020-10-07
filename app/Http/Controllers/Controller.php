@@ -32,6 +32,7 @@ class Controller extends BaseController
         ]);
         try {
             return $client->request("POST",$full_path,[
+
                 'form_params'=>[
                     "cookie"=>$cookie
                 ]
@@ -41,6 +42,26 @@ class Controller extends BaseController
         }
 
     }
+
+    public function wpLoginUser($full_path,$data)
+    {
+        $client = new GuzzleClient([
+            'base_uri' => 'https://pridenjoyco.id/',
+            'timeout'  => 2.0,
+        ]);
+        try {
+            return $client->request("POST",$full_path,[
+                "headers"=>[
+                    "Content-Type"=>"application/x-www-form-urlencoded"
+                ],
+                'form_params'=>$data
+            ]);
+        } catch (GuzzleException $e) {
+            return false;
+        }
+
+    }
+
 
     public function response($code = 200,$msg="OK",$data=[])
     {
