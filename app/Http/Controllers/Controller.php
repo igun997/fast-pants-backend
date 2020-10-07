@@ -50,14 +50,14 @@ class Controller extends BaseController
             'timeout'  => 2.0,
         ]);
         try {
-            return ["status"=>true,"data"=>$client->request("POST",$full_path,[
+            return $client->request("POST",$full_path,[
                 "headers"=>[
                     "Content-Type"=>"application/x-www-form-urlencoded"
                 ],
                 'form_params'=>$data
-            ])];
+            ]);
         } catch (GuzzleException $e) {
-            return ["status"=>false,"data"=>$e];
+            return false;
         }
 
     }
