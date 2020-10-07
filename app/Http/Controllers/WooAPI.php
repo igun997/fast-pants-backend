@@ -93,8 +93,8 @@ class WooAPI extends Controller
             $cred = $this->_listing();
             $full_domain = "https://".$cred->domain."/api/user/get_currentuserinfo/";
             $client = $this->wpCurrentUser($full_domain,$req->identifier);
-            if ($client !== FALSE){
-                $myId = json_decode($client->getBody()->getContents());
+            if ($status = $client["status"] !== FALSE){
+                $myId = json_decode($client["data"]->getBody()->getContents());
                 if ($myId){
                     if ($this->_listing()){
                         $cred = $this->_listing();
@@ -107,10 +107,11 @@ class WooAPI extends Controller
                     }
                 }
 
-                return $this->response(400);
+                return $this->response(400,"Request Failed");
             }
+            return $this->response(400,"Empty ID ",$client);
         }
-        return $this->response(400);
+        return $this->response(400,"Invalid Woo Token");
     }
 
     public function generate_cookie(Request $req)
