@@ -32,7 +32,6 @@ class Controller extends BaseController
         ]);
         try {
             return $client->request("POST",$full_path,[
-
                 'form_params'=>[
                     "cookie"=>$cookie
                 ]
@@ -46,8 +45,8 @@ class Controller extends BaseController
     public function wpLoginUser($full_path,$data)
     {
         $client = new GuzzleClient([
-            'base_uri' => 'http://httpbin.org',
-            'timeout'  => 10,
+            'base_uri' => 'https://pridenjoyco.id/',
+            'timeout'  => 2.0,
         ]);
         try {
             return $client->request("POST",$full_path,[
@@ -56,8 +55,8 @@ class Controller extends BaseController
                 ],
                 'form_params'=>$data
             ]);
-        } catch (\GuzzleHttp\Exception\ConnectException $e) {
-            return $e;
+        } catch (GuzzleException $e) {
+            return false;
         }
 
     }
