@@ -55,16 +55,18 @@ class WooAPI extends Controller
         return $this->response(400,"Bad Request");
     }
 
-    public function products()
+    public function products(Request $req)
     {
+        $req->validate([
+            "sku"=>"required"
+        ]);
         if ($this->_listing()){
             $cred = $this->_listing();
             $sk = explode(":",$cred->key_secret);
             $woo = $this->wooClient("https://$cred->domain",$sk[0],$sk[1],[
                 'version' => 'wc/v3'
             ]);
-            $fast_pants = 424;
-            $products = $woo->get("products",["category"=>$fast_pants]);
+            $products = $woo->get("products",["sku"=>$req->sku]);
             return $this->response(200,"OK",$products);
         }
         return $this->response(400);
