@@ -10,7 +10,7 @@ class WooAPI extends Controller
     public function __construct()
     {
         if ($this->identity() === null){
-            return $this->response(400);
+            return $this->response(400,"Invalid Identity");
         }
     }
 
@@ -109,10 +109,31 @@ class WooAPI extends Controller
                     }
                 }
 
-                return $this->response(400);
+                return $this->response(400,"Request Failed");
             }
         }
-        return $this->response(400);
+        return $this->response(400,"Invalid Woo Token");
+    }
+
+    public function generate_cookie(Request $req)
+    {
+        $req->validate([
+            "username"=>"required",
+            "password"=>"required",
+        ]);
+        if ($this->_listing()){
+            $cred = $this->_listing();
+            $full_domain = "https://".$cred->domain."/api/user/generate_auth_cookie/";
+            $client = $this->wpLoginUser($full_domain,$req->all());
+            if ($client !== FALSE){
+                $myId = json_decode($client->getBody()->getContents());
+                if ($myId){
+                    return  $this->response(200,"OK",$myId);
+                }
+                return $this->response(400,"Invalid MyID");
+            }
+        }
+        return $this->response(400,"Invalid Woo Client");
     }
 
     public function customer($id)
