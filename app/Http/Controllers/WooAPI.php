@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wooapi as WooapiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class WooAPI extends Controller
 {
@@ -113,6 +114,22 @@ class WooAPI extends Controller
         return $this->response(400,"Invalid Woo Token");
     }
 
+    public function order_media(Request $req)
+    {
+        $req->validate([
+            "image"=>"required"
+        ]);
+        $image = str_replace('data:image/jpeg;base64,', '', $req->image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = md5(rand(100,999)).'.'.'jpeg';
+        $save = Storage::put("public/".$imageName, base64_decode($image), 'public');
+        if ($save){
+            return $this->response(200,"OK",[
+                "link"=>url("storage/".$imageName)
+            ]);
+        }
+        return $this->response(400,"Invalid",$save);
+    }
     public function generate_cookie(Request $req)
     {
         $req->validate([

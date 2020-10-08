@@ -27,6 +27,7 @@ Route::prefix("wooapi")->namespace("App\Http\Controllers")->middleware("auth:api
     Route::get('products', 'WooAPI@products');
     Route::get('product/{id}/variations', 'WooAPI@product_variations');
     Route::post('order', 'WooAPI@order');
+    Route::post('order/media', 'WooAPI@order_media');
     Route::get('payments', 'WooAPI@payments');
     Route::get('current_login', 'WooAPI@current_login');
     Route::post('generate_login', 'WooAPI@generate_cookie');
